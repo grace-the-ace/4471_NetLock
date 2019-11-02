@@ -2,6 +2,8 @@
 Interface: 172.27.119.22 --- 0x9
   Internet Address      Physical Address      Type
   172.27.112.1          00-00-5e-00-01-0a     dynamic   
+  172.27.112.2          fc-33-42-10-90-30     dynamic   
+  172.27.112.3          fc-33-42-12-60-20     dynamic   
   172.27.119.9          80-ad-16-fc-f9-7b     dynamic   
   172.27.120.196        ac-fd-ce-f0-2a-d0     dynamic   
   172.27.121.34         8c-85-90-2a-18-ca     dynamic   

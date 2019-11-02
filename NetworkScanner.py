@@ -12,7 +12,6 @@ list_mac_addresses=set({})
 #regex to extract mac addresses from the file
 mac_reg = re.compile("([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})")
 
-
 #iterates over entire arp -a results
 for line in file:
     macAddress = re.search(mac_reg, line)
