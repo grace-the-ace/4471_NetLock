@@ -1,0 +1,22 @@
+
+Interface: 172.27.119.22 --- 0x9
+  Internet Address      Physical Address      Type
+  172.27.112.1          00-00-5e-00-01-0a     dynamic   
+  172.27.119.9          80-ad-16-fc-f9-7b     dynamic   
+  172.27.120.196        ac-fd-ce-f0-2a-d0     dynamic   
+  172.27.121.34         8c-85-90-2a-18-ca     dynamic   
+  172.27.124.223        e0-ac-cb-62-c6-42     dynamic   
+  172.27.127.255        ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static    
+  239.255.255.250       01-00-5e-7f-ff-fa     static    
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static    
+
+Interface: 192.168.56.1 --- 0x14
+  Internet Address      Physical Address      Type
+  192.168.56.255        ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static    
+  239.255.255.250       01-00-5e-7f-ff-fa     static    

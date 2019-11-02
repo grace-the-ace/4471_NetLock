@@ -7,15 +7,17 @@ os.system("arp -a > MACaddress.txt")
 file=open('MACaddress.txt')
 
 #list of all the MAC addresses of all the devices on the network
-list_mac_addresses=[]
+list_mac_addresses=set({})
 #regex to extract mac addresses from the file
 mac_reg = re.compile("([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})")
+
+
 #iterates over entire arp -a results
 for line in file:
     macAddress = re.search(mac_reg, line)
     if macAddress:
         macAddress = macAddress.group()
-        list_mac_addresses.append(macAddress)
+        list_mac_addresses.add(macAddress)
 #prints list of mac addresses
 print(list_mac_addresses)
 
