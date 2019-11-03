@@ -1,7 +1,7 @@
 import time
 import os
 import re
-#import pyshark
+import pyshark
 import io
 from datetime import datetime
 
@@ -26,7 +26,7 @@ def present_students(name_mac_addresses):
 	students = name_mac_addresses.keys()
 	for student in students:
 		if(name_mac_addresses[student]==True):
-			presentStudents.add(name)
+			presentStudents.add(student)
 	
 	return presentStudents
 			
@@ -36,7 +36,7 @@ def scan(addresses):
 	capture = pyshark.LiveCapture(interface='en0')
 	mac_reg = re.compile("(Source: )([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})")
 	mac_reg2 = re.compile("([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})")
-	for packet in capture.sniff_continuously(time=100):
+	for packet in capture.sniff_continuously(packet_count=100):
 		packet=str(packet)
 		macAddress = re.search(mac_reg, packet).group()
 		macAddress2 = re.search(mac_reg2, macAddress).group()
@@ -77,7 +77,7 @@ while (i < count+1):
 	name_mac_add.update({line.strip('\n'):False})
 	i = i+1
 
-print(name_mac_add)
+#print(name_mac_add)
 	
 
 scan(addresses)
@@ -86,5 +86,5 @@ print(addresses)
 populate(addresses,name_mac_add)
 time.sleep(4)
 end_class(name_mac_add)
-print(name_mac_add)
+#print(name_mac_add)
 
