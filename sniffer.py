@@ -1,7 +1,7 @@
 import time
 import os
 import re
-import pyshark
+#import pyshark
 import io
 from datetime import datetime
 
@@ -15,17 +15,29 @@ def populate(mac_addresses,name_mac_addresses):
 	for student in students:
 		name, mac=student.split()
 		if(mac in mac_addresses):
-			name_mac_addresses[student]=timestamp
+			name_mac_addresses[student]=True
 		else:
-			name_mac_addresses[student]=-1
+			name_mac_addresses[student]=False
+	
+	present_students(name_mac_addresses)
+
+def present_students(name_mac_addresses):
+	presentStudents = set({})
+	students = name_mac_addresses.keys()
+	for student in students:
+		if(name_mac_addresses[student]==True):
+			presentStudents.add(name)
+	
+	return presentStudents
+			
 	
 
 def scan(addresses):
 	capture = pyshark.LiveCapture(interface='en0')
-	mac_reg = re.compile("(Source: )([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})");
-	mac_reg2 = re.compile("([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})");
+	mac_reg = re.compile("(Source: )([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})")
+	mac_reg2 = re.compile("([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})")
 	for packet in capture.sniff_continuously(time=100):
-		packet=str(packet);
+		packet=str(packet)
 		macAddress = re.search(mac_reg, packet).group()
 		macAddress2 = re.search(mac_reg2, macAddress).group()
 		if(macAddress2):
@@ -54,12 +66,22 @@ def begin_class():
 
 addresses=set()
 
+test = "achour.3 fc:33:42:10:90:30\nD'Avanzo.1 fc:33:42:12:60:20\ndiago.2 fc:33:42:12:60:20\npetzev.2 fc:33:42:12:60:20"
+count = test.count('\n')
+i = 0
+buf = io.StringIO(test)
+name_mac_add = {}
+while (i < count+1):
+	list = []
+	line = buf.readline()
+	name_mac_add.update({line.strip('\n'):False})
+	i = i+1
+
+print(name_mac_add)
+	
+
 scan(addresses)
 print(addresses)
-name_mac_add={
-				"mitko.1 80:e6:50:0d:ca:a0": False,
-				"ali.2 fc:33:42:10:90:30": False,
-				"dimi.4 0a:1a:1e:05:2b:18": False}
 
 populate(addresses,name_mac_add)
 time.sleep(4)
