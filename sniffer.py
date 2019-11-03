@@ -6,27 +6,36 @@ import io
 from datetime import datetime
 
 start_of_class=0
-time_to_be_present=5;
+time_to_be_present=5
 
 def populate(mac_addresses,name_mac_addresses):
 	now = datetime.now()
 	timestamp = datetime.timestamp(now)
 	students = name_mac_addresses.keys()
+	notPresent = []
 	for student in students:
 		name, mac=student.split()
 		if(mac in mac_addresses):
 			name_mac_addresses[student]=True
 		else:
 			name_mac_addresses[student]=False
-	
-	present_students(name_mac_addresses)
+			notPresent = [name]
+			
+	studentDict = present_students(name_mac_addresses)
+				
+	for absent in notPresent:
+		studentDict.update(absent:"0min"})
+
 
 def present_students(name_mac_addresses):
 	presentStudents = set({})
 	students = name_mac_addresses.keys()
 	for student in students:
+		name, mac=student.split()
 		if(name_mac_addresses[student]==True):
-			presentStudents.add(student)
+			name_mac_add.update(name:"55min"})
+	
+	
 	
 	return presentStudents
 			
