@@ -6,28 +6,36 @@ import io
 from datetime import datetime
 
 start_of_class=0
-time_to_be_present=5;
+time_to_be_present=5 # in seconds
 
 def populate(mac_addresses,name_mac_addresses):
 	now = datetime.now()
 	timestamp = datetime.timestamp(now)
 	students = name_mac_addresses.keys()
+	notPresent = []
 	for student in students:
 		name, mac=student.split()
 		if(mac in mac_addresses):
 			name_mac_addresses[student]=True
 		else:
 			name_mac_addresses[student]=False
-	
-	present_students(name_mac_addresses)
+			notPresent.append(name)
+			
+	studentDict = present_students(name_mac_addresses)
+				
+	for absent in notPresent:
+		studentDict.update({absent:"0min"})
+	print(studentDict)
+
+
 
 def present_students(name_mac_addresses):
-	presentStudents = set({})
+	presentStudents = {}
 	students = name_mac_addresses.keys()
 	for student in students:
+		name, mac=student.split()
 		if(name_mac_addresses[student]==True):
-			presentStudents.add(student)
-	
+			presentStudents.update({name:"55min"})
 	return presentStudents
 			
 	
@@ -36,7 +44,7 @@ def scan(addresses):
 	capture = pyshark.LiveCapture(interface='en0')
 	mac_reg = re.compile("(Source: )([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})")
 	mac_reg2 = re.compile("([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})")
-	for packet in capture.sniff_continuously(packet_count=100):
+	for packet in capture.sniff_continuously(packet_count=10):
 		packet=str(packet)
 		macAddress = re.search(mac_reg, packet).group()
 		macAddress2 = re.search(mac_reg2, macAddress).group()
@@ -63,7 +71,6 @@ def begin_class():
 
 
 
-
 addresses=set()
 
 test = "achour.3 fc:33:42:10:90:30\nD'Avanzo.1 fc:33:42:12:60:20\ndiago.2 fc:33:42:12:60:20\npetzev.2 fc:33:42:12:60:20"
@@ -84,7 +91,5 @@ scan(addresses)
 print(addresses)
 
 populate(addresses,name_mac_add)
-time.sleep(4)
 end_class(name_mac_add)
 #print(name_mac_add)
-
