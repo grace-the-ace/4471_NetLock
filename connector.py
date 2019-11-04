@@ -11,7 +11,6 @@ class connect:
     #The present students are added to a dictionnary with the time they were present from
     #as the value and the name as the key
     def present_students(self, name_mac_addresses):
-        print('hello2')
         presentStudents = {}
         students = name_mac_addresses.keys()
         for student in students:
@@ -23,7 +22,6 @@ class connect:
     #Method to compare mac_addresses obtained to set name_mac_addresses
     #if the mac_address is contained in name_mac_addresses the student is marked present else absent
     def populate(self, mac_addresses, name_mac_addresses):
-        print('hello')
         students = name_mac_addresses.keys()
         notPresent = []
         for student in students:
