@@ -9,7 +9,7 @@ class scanner:
 	def __init__(self):
 		pass
 
-	def scan(self):
+	def scan():
 		addresses = set()
 		capture = pyshark.LiveCapture(interface='en0')
 		mac_reg = re.compile("(Source: )([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})")
@@ -20,9 +20,8 @@ class scanner:
 			macAddress2 = re.search(mac_reg2, macAddress).group()
 			if(macAddress2):
 				addresses.add(macAddress2)
-		
 		return addresses
 
-	addresses = scan(self)
+	addresses = scan()
 	con = connector.connect()
-	con.get_sniffed_addresses()
+	con.get_sniffed_addresses(addresses)
