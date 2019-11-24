@@ -6,7 +6,7 @@ import io
 
 class connect:
     def __init__(self):
-        pass
+        self.dict = {}
 
     #The present students are added to a dictionnary with the time they were present from
     #as the value and the name as the key
@@ -37,31 +37,27 @@ class connect:
         for absent in notPresent:
             studentDict.update({absent:"0min"})
 
-        print(studentDict)
 
-    
-    #Retrieves the string with the students and MACs from the GUI and creates a dictionnary with the name
-    #and MAC address as key and the value as prensent or absent (initialized to False for absent)
-    def create_student_dict(self, addresses):
-        studentNameMac = get_students(test)
-        self.populate(addresses, name_mac_add)
-
-    def get_sniffed_addresses(self, addresses){
+    def get_sniffed_addresses(self, addresses):
         sniffed_addresses = addresses
         self.create_student_dict(sniffed_addresses)
-    }
-
-    def get_students(self, studentMac){
-        studentMac = "achour.3 fc:33:42:10:90:30\nD'Avanzo.1 fc:33:42:12:60:20\ndiago.2 fc:33:42:12:60:20\npetzev.2 fc:33:42:12:60:20"
-        count = test.count('\n')
+    
+    def get_students(self, studentMac):
+        studentMac = "achour.3 94:f6:d6:d6:c3:18\nD'Avanzo.1 80:e6:50:0d:ca:a0\ndiago.2 fc:33:42:12:60:20\npetzev.2 fc:33:42:12:60:20"
+        count = studentMac.count('\n')
         i = 0
-        buf = io.StringIO(test)
-        name_mac_add = {}
+        buf = io.StringIO(studentMac)
+        #name_mac_add = {}
         while (i < count+1):
             list = []
             line = buf.readline()
-            name_mac_add.update({line.strip('\n'):False})
+            self.dict.update({line.strip('\n'):False})
+            #name_mac_add.update({line.strip('\n'):False})
             i = i+1
 
-        return name_mac_add
-    }
+    #Retrieves the string with the students and MACs from the GUI and creates a dictionnary with the name
+    #and MAC address as key and the value as prensent or absent (initialized to False for absent)
+    def create_student_dict(self, addresses):
+        self.get_students("")
+        print(self.dict)
+        self.populate(addresses, self.dict)
