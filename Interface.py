@@ -2,6 +2,7 @@ from  tkinter import *
 from tkinter import simpledialog
 import tkinter.ttk as ttk
 import connector
+#import sniffer
 
 class Application(object):
     def __init__(self,master):
@@ -76,6 +77,8 @@ class Application(object):
         #exits the window
         Enter=Button(child,text="Enter", command=child.destroy,font="Georgia",fg="#7CBE5F",bg="#37474f")
         Enter.pack()
+        
+        con.start()
         #TODO
         #take the list of var[] and use this to begin mointering of the appropriate classes
         #TODO
@@ -116,11 +119,14 @@ class Application(object):
     #creates a new class from the entered data
     def CreateNewClass(self,window, text):
         #this is the string!!!
+
         newclass=text.get(3.0,END)
 
-        con = connector.connect()
+        
+
 
         con.get_students(newclass)
+        #sniff=sniffer.scanner()
         
         #add new class to data structure of classes
         #can assume set up will be each line as a name a space and then the MAC address
@@ -129,7 +135,8 @@ class Application(object):
         window.destroy()
 
 
-        
+
+con = connector.connect()        
 app=Tk()
 Application=Application(app)
 app.mainloop()
