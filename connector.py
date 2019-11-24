@@ -43,7 +43,8 @@ class connect:
         self.create_student_dict(sniffed_addresses)
     
     def get_students(self, studentMac):
-        studentMac = "achour.3 94:f6:d6:d6:c3:18\nD'Avanzo.1 80:e6:50:0d:ca:a0\ndiago.2 fc:33:42:12:60:20\npetzev.2 fc:33:42:12:60:20"
+        studentMac = studentMac
+        #studentMac = "achour.3 94:f6:d6:d6:c3:18\nD'Avanzo.1 80:e6:50:0d:ca:a0\ndiago.2 fc:33:42:12:60:20\npetzev.2 fc:33:42:12:60:20"
         count = studentMac.count('\n')
         i = 0
         buf = io.StringIO(studentMac)

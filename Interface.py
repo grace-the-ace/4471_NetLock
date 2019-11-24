@@ -1,6 +1,8 @@
 from  tkinter import *
 from tkinter import simpledialog
 import tkinter.ttk as ttk
+import connector
+
 class Application(object):
     def __init__(self,master):
         self.master=master
@@ -113,14 +115,18 @@ class Application(object):
         #Format finish button better
     #creates a new class from the entered data
     def CreateNewClass(self,window, text):
+        #this is the string!!!
         newclass=text.get(3.0,END)
+
+        con = connector.connect()
+
+        con.get_students(newclass)
+        
         #add new class to data structure of classes
         #can assume set up will be each line as a name a space and then the MAC address
         #TODO
         print(newclass)
-        print(type(newclass))
         window.destroy()
-        
 
 
         
