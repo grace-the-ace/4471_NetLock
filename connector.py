@@ -43,7 +43,16 @@ class connect:
     #Retrieves the string with the students and MACs from the GUI and creates a dictionnary with the name
     #and MAC address as key and the value as prensent or absent (initialized to False for absent)
     def create_student_dict(self, addresses):
-        test = "achour.3 fc:33:42:10:90:30\nD'Avanzo.1 fc:33:42:12:60:20\ndiago.2 fc:33:42:12:60:20\npetzev.2 fc:33:42:12:60:20"
+        studentNameMac = get_students(test)
+        self.populate(addresses, name_mac_add)
+
+    def get_sniffed_addresses(self, addresses){
+        sniffed_addresses = addresses
+        self.create_student_dict(sniffed_addresses)
+    }
+
+    def get_students(self, studentMac){
+        studentMac = "achour.3 fc:33:42:10:90:30\nD'Avanzo.1 fc:33:42:12:60:20\ndiago.2 fc:33:42:12:60:20\npetzev.2 fc:33:42:12:60:20"
         count = test.count('\n')
         i = 0
         buf = io.StringIO(test)
@@ -53,4 +62,6 @@ class connect:
             line = buf.readline()
             name_mac_add.update({line.strip('\n'):False})
             i = i+1
-        self.populate(addresses, name_mac_add)
+
+        return name_mac_add
+    }

@@ -118,6 +118,7 @@ class Application(object):
         #can assume set up will be each line as a name a space and then the MAC address
         #TODO
         print(newclass)
+        print(type(newclass))
         window.destroy()
         
 
