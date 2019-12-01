@@ -1,6 +1,9 @@
 from  tkinter import *
 from tkinter import simpledialog
 import tkinter.ttk as ttk
+import connector
+#import sniffer
+
 class Application(object):
     def __init__(self,master):
         self.master=master
@@ -39,15 +42,15 @@ class Application(object):
         #creates and places the Start, Stop, and SetUp Buttons
         #Start begins the mointering of the selected class
         self.Start=Button(self.master,text="Start Class", font="Georgia",width=20,height=4,bd=0,
-            activeforeground="#fff",activebackground="#7CBE5F",command = self.StartCommand)
+            activeforeground="#fff",activebackground="#7CBE5F",fg="#fff",bg="#7CBE5F",command = self.StartCommand)
         self.Start.place(x=35,y=220)
         #Stop stops any classes being currently mointered and prints the results
         self.Stop=Button(self.master,text="Stop Class", width=20,height=4,bd=0,font="Georgia",
-            activeforeground="#fff",activebackground="#7CBE5F",command=self.StopCommand)
+            activeforeground="#fff",activebackground="#7CBE5F",fg="#fff",bg="#7CBE5F",command=self.StopCommand)
         self.Stop.place(x=35,y=350)
         #Setup allows you to add another class the application can mointer
         self.Setup=Button(self.master,text="Setup", width=20,height=4,bd=0,font="Georgia",
-            activeforeground="#fff",activebackground="#7CBE5F",command=self.SetUpCommand)
+            activeforeground="#fff",activebackground="#7CBE5F",fg="#fff",bg="#7CBE5F",command=self.SetUpCommand)
         self.Setup.place(x=35,y=480)
     #Command executes when Start button pressed
     def StartCommand(self):
@@ -74,6 +77,8 @@ class Application(object):
         #exits the window
         Enter=Button(child,text="Enter", command=child.destroy,font="Georgia",fg="#7CBE5F",bg="#37474f")
         Enter.pack()
+        
+        con.start()
         #TODO
         #take the list of var[] and use this to begin mointering of the appropriate classes
         #TODO
@@ -83,10 +88,34 @@ class Application(object):
     def StopCommand(self):
         #TODO
         #calls function to stop mointering
-        print("placeholder")
         #TODO
         #opens a table with names and minutes in class
+        finn=con.stop()
         table=Tk()
+        tree=ttk.Treeview(table)
+        tree["columns"]=("one")
+        tree.column("#0", width=300 )
+        tree.column("one", width=100)
+        tree.heading("#0", text="Name")
+        tree.heading("one", text="Present")
+        names=finn.keys()
+        for entr in names:
+            tree.insert("" , 0,    text=entr, values=(finn[entr]))
+
+        tree.pack()
+        
+        table.mainloop()
+        # height = 3 #len(finn)+1
+        # width = 2
+        # ttk.Label(table, text="Name").grid(row=0,column=0)
+        # ttk.Label(table, text="Present").grid(row=0,column=1)
+        # NAME = StringVar()
+        # NAME.set("724-###-###")
+        # for i in range(height): #Rows
+        #     for j in range(width): #Columns
+        #         if(i!=0):
+        #             b = Entry(table, text=NAME)
+        #             b.grid(row=i, column=j)
     #Command called when setup button is pressed
     def SetUpCommand(self):
         #opens a new window
@@ -113,16 +142,24 @@ class Application(object):
         #Format finish button better
     #creates a new class from the entered data
     def CreateNewClass(self,window, text):
+        #this is the string!!!
+
         newclass=text.get(3.0,END)
+
+        
+
+
+        con.get_students(newclass)
+        #sniff=sniffer.scanner()
+        
         #add new class to data structure of classes
         #can assume set up will be each line as a name a space and then the MAC address
         #TODO
-        print(newclass)
         window.destroy()
-        
 
 
-        
+
+con = connector.connect()        
 app=Tk()
 Application=Application(app)
 app.mainloop()
