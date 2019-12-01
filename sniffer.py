@@ -21,7 +21,6 @@ class scanner:
 			if(macAddress2):
 				addresses.add(macAddress2)
 		return addresses
-	def main(self):
-		addresses = self.scan()
-		con = connector.connect()
-		con.get_sniffed_addresses(addresses)
+	
+	
+		

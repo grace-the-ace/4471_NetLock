@@ -4,11 +4,10 @@ import re
 import io
 import sniffer
 
-class connect:
-    
-    def __init__(self, dict = {'achour.3 94:f6:d6:d6:c3:18': False, 'DAvanzo.1 80:e6:50:0d:ca:a0': False}):
-        self.dict = dict
 
+class connect:
+    def __init__(self):
+        self.dict = {}
 
     #The present students are added to a dictionnary with the time they were present from
     #as the value and the name as the key
@@ -23,10 +22,8 @@ class connect:
 
     #Method to compare mac_addresses obtained to set name_mac_addresses
     #if the mac_address is contained in name_mac_addresses the student is marked present else absent
-    # called from create_student_dict
     def populate(self, mac_addresses, name_mac_addresses):
         students = name_mac_addresses.keys()
-        print(students)
         notPresent = []
         for student in students:
             name, mac=student.split()
@@ -40,19 +37,18 @@ class connect:
 
         for absent in notPresent:
             studentDict.update({absent:"0min"})
-        #print('\n'.join(studentDict))
 
-    def get_sniffed_addresses(self, addresses):
-        self.create_student_dict(addresses)
 
-    def start(self):
+    def get_sniffed_addresses(self,addresses):
+        sniffed_addresses = addresses
+        self.create_student_dict(sniffed_addresses)
+
+    def start():
         sniff = sniffer.scanner()
-        sniff.main()
-
-
-    # getts list of students from interface setup and puts them in dictionairy
+        self.get_sniffed_addresses(sniff.scan())
+    
     def get_students(self, studentMac):
-        print(studentMac)
+        studentMac = studentMac
         #studentMac = "achour.3 94:f6:d6:d6:c3:18\nD'Avanzo.1 80:e6:50:0d:ca:a0\ndiago.2 fc:33:42:12:60:20\npetzev.2 fc:33:42:12:60:20"
         count = studentMac.count('\n')
         i = 0
@@ -62,17 +58,15 @@ class connect:
             list = []
             line = buf.readline()
             self.dict.update({line.strip('\n'):False})
-
-            #print(self.dict)
             #name_mac_add.update({line.strip('\n'):False})
             i = i+1
 
-
-
     #Retrieves the string with the students and MACs from the GUI and creates a dictionnary with the name
     #and MAC address as key and the value as prensent or absent (initialized to False for absent)
-    # called from get_sniffed_addresses
     def create_student_dict(self, addresses):
         self.get_students("")
         print(self.dict)
         self.populate(addresses, self.dict)
+
+
+    
