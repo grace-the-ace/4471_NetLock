@@ -88,9 +88,9 @@ class Application(object):
     def StopCommand(self):
         #TODO
         #calls function to stop mointering
-        print("placeholder")
         #TODO
         #opens a table with names and minutes in class
+        con.stop()
         table=Tk()
     #Command called when setup button is pressed
     def SetUpCommand(self):
@@ -131,7 +131,6 @@ class Application(object):
         #add new class to data structure of classes
         #can assume set up will be each line as a name a space and then the MAC address
         #TODO
-        print(newclass)
         window.destroy()
 
 
