@@ -52,10 +52,15 @@ class connect:
         self.create_student_dict(sniffed_addresses)
 
     def start(self): 
-        self.get_sniffed_addresses(sniff.scan())
+        start = True
+        self.get_sniffed_addresses(sniff.scan(start))
 
     def stop(self):
+        stop = False
+        sniff.scan(stop)
         return self.studentDict
+
+
     
     def get_students(self, studentMac):
         studentMac = studentMac
