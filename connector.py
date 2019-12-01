@@ -8,6 +8,8 @@ import sniffer
 class connect:
     def __init__(self):
         self.dict = {}
+        self.studentDict={}
+
 
     #The present students are added to a dictionnary with the time they were present from
     #as the value and the name as the key
@@ -15,7 +17,8 @@ class connect:
         presentStudents = {}
         students = name_mac_addresses.keys()
         for student in students:
-            name, mac=student.split()
+            if(len(student)>1):
+                name, mac=student.split()
             if(name_mac_addresses[student]==True):
                 presentStudents.update({name:"55min"})
         return presentStudents
@@ -24,28 +27,35 @@ class connect:
     #if the mac_address is contained in name_mac_addresses the student is marked present else absent
     def populate(self, mac_addresses, name_mac_addresses):
         students = name_mac_addresses.keys()
+        
         notPresent = []
         for student in students:
-            name, mac=student.split()
+            if(len(student)>1):
+                name, mac=student.split()
             if(mac in mac_addresses):
                 name_mac_addresses[student]=True
             else:
                 name_mac_addresses[student]=False
                 notPresent.append(name)
 
-        studentDict = self.present_students(name_mac_addresses)
+        #dict with name of student and how long present/absent
+        self.studentDict = self.present_students(name_mac_addresses)
 
         for absent in notPresent:
-            studentDict.update({absent:"0min"})
+            self.studentDict.update({absent:"0min"})
+
+        
 
 
     def get_sniffed_addresses(self,addresses):
         sniffed_addresses = addresses
         self.create_student_dict(sniffed_addresses)
 
-    def start():
-        sniff = sniffer.scanner()
+    def start(self): 
         self.get_sniffed_addresses(sniff.scan())
+
+    def stop(self):
+        return self.studentDict
     
     def get_students(self, studentMac):
         studentMac = studentMac
@@ -65,8 +75,6 @@ class connect:
     #and MAC address as key and the value as prensent or absent (initialized to False for absent)
     def create_student_dict(self, addresses):
         self.get_students("")
-        print(self.dict)
         self.populate(addresses, self.dict)
 
-
-    
+sniff = sniffer.scanner()
