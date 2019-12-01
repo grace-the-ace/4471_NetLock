@@ -42,15 +42,15 @@ class Application(object):
         #creates and places the Start, Stop, and SetUp Buttons
         #Start begins the mointering of the selected class
         self.Start=Button(self.master,text="Start Class", font="Georgia",width=20,height=4,bd=0,
-            activeforeground="#fff",activebackground="#7CBE5F",command = self.StartCommand)
+            activeforeground="#fff",activebackground="#7CBE5F",fg="#fff",bg="#7CBE5F",command = self.StartCommand)
         self.Start.place(x=35,y=220)
         #Stop stops any classes being currently mointered and prints the results
         self.Stop=Button(self.master,text="Stop Class", width=20,height=4,bd=0,font="Georgia",
-            activeforeground="#fff",activebackground="#7CBE5F",command=self.StopCommand)
+            activeforeground="#fff",activebackground="#7CBE5F",fg="#fff",bg="#7CBE5F",command=self.StopCommand)
         self.Stop.place(x=35,y=350)
         #Setup allows you to add another class the application can mointer
         self.Setup=Button(self.master,text="Setup", width=20,height=4,bd=0,font="Georgia",
-            activeforeground="#fff",activebackground="#7CBE5F",command=self.SetUpCommand)
+            activeforeground="#fff",activebackground="#7CBE5F",fg="#fff",bg="#7CBE5F",command=self.SetUpCommand)
         self.Setup.place(x=35,y=480)
     #Command executes when Start button pressed
     def StartCommand(self):
