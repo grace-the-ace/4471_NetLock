@@ -60,7 +60,7 @@ class Application(object):
         child.configure(background="#37474f")
         #number of class variables created in setup
         #placeholder
-        classNum=3
+        classNum=1
         #list of vars for each class
         #if incremented then mointering needs to begin
         var=[]
@@ -71,20 +71,23 @@ class Application(object):
         #creates lists
         for i in range(classNum):
             var.append(IntVar())
-            chooseclass.append(Checkbutton(child,text=("Class "+str(i)), variable=var[i],font="Georgia",fg="#7CBE5F",bg="#37474f"))
+            chooseclass.append(Checkbutton(child,text="Class sample", variable=var[i],font="Georgia",fg="#7CBE5F",bg="#37474f"))
             chooseclass[i].pack(side=TOP)
         #creates button to enter which class will begin mointering
         #exits the window
-        Enter=Button(child,text="Enter", command=child.destroy,font="Georgia",fg="#7CBE5F",bg="#37474f")
+        Enter=Button(child,text="Enter", command=lambda: self.ChooseCommand(child),font="Georgia",fg="#7CBE5F",bg="#37474f")
         Enter.pack()
         
-        con.start()
         #TODO
         #take the list of var[] and use this to begin mointering of the appropriate classes
         #TODO
         #update list display
     
     #Command called when stop button is pressed
+    def ChooseCommand(self,child):
+        con.start()
+        child.destroy
+        
     def StopCommand(self):
         #TODO
         #calls function to stop mointering
